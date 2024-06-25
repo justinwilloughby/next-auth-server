@@ -6,6 +6,7 @@ import { useState } from "react";
 export function GetTokenButton({ code }: { code: string; }) {
 
     const [tokenResponse, setTokenResponse] = useState<string>("");
+    const [userResponse, setUserResponse] = useState<string>("");
 
     return (
         <>
@@ -35,6 +36,34 @@ export function GetTokenButton({ code }: { code: string; }) {
             <div className="mt-2">
                 {tokenResponse}
             </div>
+            <Button
+                className="mt-4"
+                onClick={async () => {
+                    const response = await fetch("/api/user", {
+                        headers: {
+                            authorization: `Bearer ${tokenResponse && JSON.parse(tokenResponse).access_token}`,
+                        }
+                    });
+
+                    const json = await response.json();
+                    
+                    setUserResponse(JSON.stringify(json));
+                }}
+            >
+                Call API
+            </Button>
+            <div className="mt-2">
+                {userResponse}
+            </div>
+            <Button
+                className="mt-4"
+                onClick={() => {
+                    setTokenResponse("");
+                    setUserResponse("");
+                }}
+            >
+                Clear Responses
+            </Button>
         </>
         
     );

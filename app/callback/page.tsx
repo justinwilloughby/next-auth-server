@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { RequestError } from "../authorize/request-error";
-import { GetTokenButton } from "./get-token-button";
+import { GetTokenButton } from "./token-buttons";
 
 export default function Callback({ searchParams }: { searchParams?: { [key: string]: string | string[] | undefined };}) {
     const code = searchParams?.code;
