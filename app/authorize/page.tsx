@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { LoginForm } from "./login-form";
+import { RequestError } from "./request-error";
 
 export type LoginResponse = {
     success: boolean;
@@ -40,11 +41,25 @@ export default function Authorize({ searchParams }: { searchParams?: { [key: str
     };
 
     if (clientId !== mockClient.clientId) {
-        return <div>Invalid client</div>;
+        return (
+            <div className="h-full w-full lg:w-[500px] mx-auto flex flex-col items-center justify-center">
+                <div className="w-full shadow-2xl p-8 rounded-lg text-center">
+                    <h1 className="text-2xl text-bold pb-8">Oops... something went wrong.</h1>
+                    <RequestError error="Invalid client id" />
+                </div>
+            </div>
+        )
     }
 
     if (redirectUri !== mockClient.redirectUri) {
-        return <div>Invalid redirect uri</div>;
+        return (
+            <div className="h-full w-full lg:w-[500px] mx-auto flex flex-col items-center justify-center">
+                <div className="w-full shadow-2xl p-8 rounded-lg text-center">
+                    <h1 className="text-2xl text-bold pb-8">Oops... something went wrong.</h1>
+                    <RequestError error="Invalid redirect uri" />
+                </div>
+            </div>
+        );
     }
 
     if (responseType !== "code") {

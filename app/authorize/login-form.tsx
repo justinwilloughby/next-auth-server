@@ -59,7 +59,7 @@ export const LoginForm = ({ redirectUri, loginAction }: Props) => {
 
     return (
         <>
-            {errorMessage && <div>{errorMessage}</div>}
+            {errorMessage && <div className="pb-4 text-rose-500">{errorMessage}</div>}
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                     <FormField

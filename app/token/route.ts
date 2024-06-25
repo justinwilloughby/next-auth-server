@@ -1,5 +1,3 @@
-import { access } from "fs";
-
 export async function POST(req: Request) {
     const text = await req.text();
     const body = Object.fromEntries(new URLSearchParams(text));
@@ -54,6 +52,14 @@ export async function POST(req: Request) {
     }
 
     // TODO: Validate the code.
+    const mockCode = "123456";
+    if (code !== mockCode) {
+        return Response.json({
+            error: "invalid_grant",
+            error_description: "Invalid grant.",
+            error_uri: "",
+        }, {status: 400});
+    }
 
     return Response.json({
         access_token: "12345",
@@ -66,5 +72,5 @@ export async function POST(req: Request) {
         headers: {
             "Cache-Control": "no-store",
         }
-    })
+    });
 }
